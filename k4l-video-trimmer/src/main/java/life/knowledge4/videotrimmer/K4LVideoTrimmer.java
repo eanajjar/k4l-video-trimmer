@@ -139,6 +139,7 @@ public class K4LVideoTrimmer extends FrameLayout {
         //mTextSize = ((TextView) findViewById(R.id.textSize));
         mTextTimeFrame = ((TextView) findViewById(R.id.textTimeSelection));
         //mTextTime = ((TextView) findViewById(R.id.textTime));
+
         mTimeLineView = ((TimeLineView) findViewById(R.id.timeLineView));
 
 		if(mProgressDrawable != 0){
@@ -588,6 +589,17 @@ public class K4LVideoTrimmer extends FrameLayout {
     public void setMaxDuration(int maxDuration) {
         mMaxDuration = maxDuration * 1000;
     }
+
+	/**
+	 * Set the maximum duration of the trimmed video.
+	 * The trimmer interface wont allow the user to set duration longer than maxDuration
+	 *
+	 * @param maxDurationInMsec the maximum duration of the trimmed video in milliseconds
+	 */
+	@SuppressWarnings("unused")
+	public void setMaxDurationInMsec(int maxDurationInMsec){
+		mMaxDuration = maxDurationInMsec;
+	}
 
     /**
      * Sets the uri of the video to be trimmer
