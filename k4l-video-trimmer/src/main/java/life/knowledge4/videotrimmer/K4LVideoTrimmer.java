@@ -24,12 +24,16 @@
 package life.knowledge4.videotrimmer;
 
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -98,6 +102,10 @@ public class K4LVideoTrimmer extends FrameLayout {
     private int mStartPosition = 0;
     private int mEndPosition = 0;
 
+	private @DrawableRes int mProgressDrawable = 0;
+	private @DrawableRes int mRangeDrawableLeft = 0;
+	private @DrawableRes int mRangeDrawableRight = 0;
+
     private long mOriginSizeFile;
     private boolean mResetSeekBar = true;
     private final MessageHandler mMessageHandler = new MessageHandler(this);
@@ -108,6 +116,10 @@ public class K4LVideoTrimmer extends FrameLayout {
 
     public K4LVideoTrimmer(@NonNull Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+		TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.trimmer, 0, 0);
+		mProgressDrawable = a.getResourceId(R.styleable.trimmer_seek_drawable, 0);
+		mRangeDrawableLeft = a.getResourceId(R.styleable.trimmer_range_drawableLeft, 0);
+		mRangeDrawableRight = a.getResourceId(R.styleable.trimmer_range_drawableRight, 0);
         init(context);
     }
 
@@ -128,6 +140,17 @@ public class K4LVideoTrimmer extends FrameLayout {
         mTextTimeFrame = ((TextView) findViewById(R.id.textTimeSelection));
         //mTextTime = ((TextView) findViewById(R.id.textTime));
         mTimeLineView = ((TimeLineView) findViewById(R.id.timeLineView));
+
+		if(mProgressDrawable != 0){
+			mHolderTopView.setThumb(ContextCompat.getDrawable(context, mProgressDrawable));
+		}
+		if(mRangeDrawableLeft != 0){
+			mRangeSeekBarView.getThumbs().get(0).setDrawable(ContextCompat.getDrawable(context, mRangeDrawableLeft));
+		}
+		if(mRangeDrawableRight != 0){
+			mRangeSeekBarView.getThumbs().get(1).setDrawable(ContextCompat.getDrawable(context, mRangeDrawableRight));
+		}
+
 
         setUpListeners();
         setUpMargins();
@@ -262,6 +285,15 @@ public class K4LVideoTrimmer extends FrameLayout {
         lp.setMargins(marge, 0, marge, 0);
         mVideoProgressIndicator.setLayoutParams(lp);
     }
+
+	public void setSeekBarThumbDrawable(Drawable drawable){
+		mHolderTopView.setThumb(drawable);
+	}
+
+	public void setRangeSeekBarDrawables(@DrawableRes int left, @DrawableRes int right){
+		mRangeSeekBarView.getThumbs().get(0).setDrawable(ContextCompat.getDrawable(getContext(), mRangeDrawableLeft));
+		mRangeSeekBarView.getThumbs().get(1).setDrawable(ContextCompat.getDrawable(getContext(), mRangeDrawableRight));
+	}
 
 	private void onTrimFinished(){
 		if(mOnTrimVideoListener != null){
