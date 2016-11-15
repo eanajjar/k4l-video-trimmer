@@ -206,6 +206,7 @@ public class RangeSeekBarView extends View {
 
                 setThumbPos(currentThumb, mThumb.getPos());
 
+
                 // Invalidate to request a redraw
                 invalidate();
                 return true;

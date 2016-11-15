@@ -25,6 +25,7 @@ package life.knowledge4.videotrimmer;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
@@ -63,6 +64,7 @@ import life.knowledge4.videotrimmer.interfaces.OnProgressVideoListener;
 import life.knowledge4.videotrimmer.interfaces.OnRangeSeekBarListener;
 import life.knowledge4.videotrimmer.interfaces.OnTrimVideoListener;
 import life.knowledge4.videotrimmer.utils.BackgroundExecutor;
+import life.knowledge4.videotrimmer.utils.ImageUtils;
 import life.knowledge4.videotrimmer.utils.TrimVideoUtils;
 import life.knowledge4.videotrimmer.utils.UiThreadExecutor;
 import life.knowledge4.videotrimmer.view.ProgressBarView;
@@ -72,7 +74,7 @@ import life.knowledge4.videotrimmer.view.TimeLineView;
 
 import static life.knowledge4.videotrimmer.utils.TrimVideoUtils.stringForTime;
 
-public class K4LVideoTrimmer extends FrameLayout {
+public class K4LVideoTrimmer extends FrameLayout{
 
     private static final String TAG = K4LVideoTrimmer.class.getSimpleName();
     private static final int MIN_TIME_FRAME = 1000;
@@ -107,6 +109,7 @@ public class K4LVideoTrimmer extends FrameLayout {
 	private @DrawableRes int mRangeDrawableLeft = 0;
 	private @DrawableRes int mRangeDrawableRight = 0;
 	private @Dimension int mMaxWidthRangeDrawable = 0;
+	private @Dimension int mSeekThumbWidth = 0;
 
     private long mOriginSizeFile;
     private boolean mResetSeekBar = true;
@@ -123,6 +126,7 @@ public class K4LVideoTrimmer extends FrameLayout {
 		mRangeDrawableLeft = a.getResourceId(R.styleable.trimmer_range_drawableLeft, 0);
 		mRangeDrawableRight = a.getResourceId(R.styleable.trimmer_range_drawableRight, 0);
 		mMaxWidthRangeDrawable = a.getDimensionPixelSize(R.styleable.trimmer_range_drawable_width, context.getResources().getDimensionPixelSize(R.dimen.default_width));
+		mSeekThumbWidth = a.getDimensionPixelSize(R.styleable.trimmer_seek_drawable_width, context.getResources().getDimensionPixelSize(R.dimen.default_width));
         init(context);
     }
 
@@ -146,7 +150,9 @@ public class K4LVideoTrimmer extends FrameLayout {
         mTimeLineView = ((TimeLineView) findViewById(R.id.timeLineView));
 
 		if(mProgressDrawable != 0){
-			mHolderTopView.setThumb(ContextCompat.getDrawable(context, mProgressDrawable));
+			mHolderTopView.setThumb(new BitmapDrawable(getResources(), ImageUtils.getScaledBitmap(
+					ImageUtils.drawableToBitmap(ContextCompat.getDrawable(context, mProgressDrawable)), mSeekThumbWidth)));
+			//mHolderTopView.setThumb(ContextCompat.getDrawable(context, mProgressDrawable));
 		}
 		if(mRangeDrawableLeft != 0){
 			mRangeSeekBarView.getThumbs().get(0).setDrawable(ContextCompat.getDrawable(context, mRangeDrawableLeft), mMaxWidthRangeDrawable);
@@ -421,7 +427,7 @@ public class K4LVideoTrimmer extends FrameLayout {
     private void onVideoPrepared() {
         mPlayView.setVisibility(View.VISIBLE);
 
-        mDuration = mVideoView.getDuration();
+        mDuration = mVideoView.getDuration()-1;
         setSeekBarPosition();
 
         setTimeFrames();
@@ -468,15 +474,16 @@ public class K4LVideoTrimmer extends FrameLayout {
             case Thumb.LEFT: {
                 mStartPosition = (int) ((mDuration * value) / 100L);
                 mVideoView.seekTo(mStartPosition);
+				setProgressBarPosition(mStartPosition);
                 break;
             }
             case Thumb.RIGHT: {
                 mEndPosition = (int) ((mDuration * value) / 100L);
+				mVideoView.seekTo(mEndPosition);
+				setProgressBarPosition(mEndPosition);
                 break;
             }
         }
-        setProgressBarPosition(mStartPosition);
-
         setTimeFrames();
         mTimeVideo = mEndPosition - mStartPosition;
     }
@@ -632,7 +639,7 @@ public class K4LVideoTrimmer extends FrameLayout {
         mTimeLineView.setVideo(mSrc);
     }
 
-    private static class MessageHandler extends Handler {
+	private static class MessageHandler extends Handler {
 
         @NonNull
         private final WeakReference<K4LVideoTrimmer> mView;

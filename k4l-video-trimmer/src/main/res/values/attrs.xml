@@ -5,5 +5,6 @@
         <attr name="range_drawableLeft" format="reference"/>
         <attr name="range_drawableRight" format="reference"/>
         <attr name="range_drawable_width" format="dimension"/>
+        <attr name="seek_drawable_width" format="dimension"/>
     </declare-styleable>
 </resources>

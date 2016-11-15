@@ -8,5 +8,6 @@
     trimmer:range_drawableRight="@drawable/video_cropper_right_stop"
     trimmer:seek_drawable="@drawable/video_cropper_current_position"
     trimmer:range_drawable_width="24dp"
+    trimmer:seek_drawable_width="16dp"
     />
 
