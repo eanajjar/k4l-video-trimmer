@@ -119,8 +119,17 @@
         android:layout_alignParentStart="true">
 
 
-
-
+        <SeekBar
+            android:id="@+id/handlerTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="@dimen/default_width"
+            android:layout_gravity="center_horizontal"
+            android:max="1000"
+            android:progressDrawable="@android:color/transparent"
+            android:secondaryProgress="0"
+            android:thumb="@drawable/apptheme_text_select_handle_middle"
+            />
 
         <life.knowledge4.videotrimmer.view.ProgressBarView
             android:id="@+id/timeVideoView"
@@ -135,17 +144,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/timeVideoView" />
-
-        <SeekBar
-            android:id="@+id/handlerTop"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:max="1000"
-            android:progressDrawable="@android:color/transparent"
-            android:secondaryProgress="0"
-            android:thumb="@drawable/apptheme_text_select_handle_middle"
-            />
 
 
         <life.knowledge4.videotrimmer.view.RangeSeekBarView

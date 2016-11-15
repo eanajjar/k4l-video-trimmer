@@ -113,8 +113,16 @@ public class Thumb {
         return thumbs;
     }
 
-	public void setDrawable(Drawable drawable){
-		mBitmap = drawableToBitmap(drawable);
+	public void setDrawable(Drawable drawable, int mMaxWidthRangeDrawable){
+		setBitmap(getScaledBitmap(drawableToBitmap(drawable), mMaxWidthRangeDrawable));
+	}
+
+	public static Bitmap getScaledBitmap(Bitmap bitmap, int width){
+		float aspectRatio = bitmap.getWidth() /
+				(float) bitmap.getHeight();
+		int height = Math.round(width / aspectRatio);
+
+		return  Bitmap.createScaledBitmap(bitmap, width, height, false);
 	}
 
 	public static Bitmap drawableToBitmap (Drawable drawable) {

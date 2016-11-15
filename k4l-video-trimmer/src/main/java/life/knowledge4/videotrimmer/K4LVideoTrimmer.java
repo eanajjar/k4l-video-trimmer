@@ -31,6 +31,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Dimension;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -105,6 +106,7 @@ public class K4LVideoTrimmer extends FrameLayout {
 	private @DrawableRes int mProgressDrawable = 0;
 	private @DrawableRes int mRangeDrawableLeft = 0;
 	private @DrawableRes int mRangeDrawableRight = 0;
+	private @Dimension int mMaxWidthRangeDrawable = 0;
 
     private long mOriginSizeFile;
     private boolean mResetSeekBar = true;
@@ -120,6 +122,7 @@ public class K4LVideoTrimmer extends FrameLayout {
 		mProgressDrawable = a.getResourceId(R.styleable.trimmer_seek_drawable, 0);
 		mRangeDrawableLeft = a.getResourceId(R.styleable.trimmer_range_drawableLeft, 0);
 		mRangeDrawableRight = a.getResourceId(R.styleable.trimmer_range_drawableRight, 0);
+		mMaxWidthRangeDrawable = a.getDimensionPixelSize(R.styleable.trimmer_range_drawable_width, context.getResources().getDimensionPixelSize(R.dimen.default_width));
         init(context);
     }
 
@@ -146,12 +149,11 @@ public class K4LVideoTrimmer extends FrameLayout {
 			mHolderTopView.setThumb(ContextCompat.getDrawable(context, mProgressDrawable));
 		}
 		if(mRangeDrawableLeft != 0){
-			mRangeSeekBarView.getThumbs().get(0).setDrawable(ContextCompat.getDrawable(context, mRangeDrawableLeft));
+			mRangeSeekBarView.getThumbs().get(0).setDrawable(ContextCompat.getDrawable(context, mRangeDrawableLeft), mMaxWidthRangeDrawable);
 		}
 		if(mRangeDrawableRight != 0){
-			mRangeSeekBarView.getThumbs().get(1).setDrawable(ContextCompat.getDrawable(context, mRangeDrawableRight));
+			mRangeSeekBarView.getThumbs().get(1).setDrawable(ContextCompat.getDrawable(context, mRangeDrawableRight), mMaxWidthRangeDrawable);
 		}
-
 
         setUpListeners();
         setUpMargins();
@@ -292,8 +294,8 @@ public class K4LVideoTrimmer extends FrameLayout {
 	}
 
 	public void setRangeSeekBarDrawables(@DrawableRes int left, @DrawableRes int right){
-		mRangeSeekBarView.getThumbs().get(0).setDrawable(ContextCompat.getDrawable(getContext(), mRangeDrawableLeft));
-		mRangeSeekBarView.getThumbs().get(1).setDrawable(ContextCompat.getDrawable(getContext(), mRangeDrawableRight));
+		mRangeSeekBarView.getThumbs().get(0).setDrawable(ContextCompat.getDrawable(getContext(), mRangeDrawableLeft), mMaxWidthRangeDrawable);
+		mRangeSeekBarView.getThumbs().get(1).setDrawable(ContextCompat.getDrawable(getContext(), mRangeDrawableRight), mMaxWidthRangeDrawable);
 	}
 
 	private void onTrimFinished(){
