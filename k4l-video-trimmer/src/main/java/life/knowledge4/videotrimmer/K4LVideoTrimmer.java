@@ -258,7 +258,7 @@ public class K4LVideoTrimmer extends FrameLayout {
         mVideoProgressIndicator.setLayoutParams(lp);
     }
 
-    private void onSaveClicked() {
+    public void onSaveClicked() {
         if (mStartPosition <= 0 && mEndPosition >= mDuration) {
             if (mOnTrimVideoListener != null)
                 mOnTrimVideoListener.getResult(mSrc);
@@ -318,7 +318,7 @@ public class K4LVideoTrimmer extends FrameLayout {
         }
     }
 
-    private void onCancelClicked() {
+    public void onCancelClicked() {
         mVideoView.stopPlayback();
         if (mOnTrimVideoListener != null) {
             mOnTrimVideoListener.cancelAction();
