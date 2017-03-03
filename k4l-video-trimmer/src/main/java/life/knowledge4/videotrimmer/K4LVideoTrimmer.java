@@ -310,7 +310,7 @@ public class K4LVideoTrimmer extends FrameLayout{
 		}
 	}
 
-	private void onSaveClicked() {
+	public void onSaveClicked() {
 		if(mOnTrimVideoListener != null && !mOnTrimVideoListener.shouldTrim()){
 			onTrimFinished();
 			return;
@@ -374,7 +374,7 @@ public class K4LVideoTrimmer extends FrameLayout{
         }
     }
 
-    private void onCancelClicked() {
+    public void onCancelClicked() {
         mVideoView.stopPlayback();
         if (mOnTrimVideoListener != null) {
             mOnTrimVideoListener.cancelAction();
