@@ -20,7 +20,8 @@
         </activity>
 
         <activity
-            android:name=".TrimmerActivity" />
+            android:name=".TrimmerActivity"
+            android:theme="@style/TrimTheme"/>
     </application>
 
 </manifest>

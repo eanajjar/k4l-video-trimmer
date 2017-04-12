@@ -15,4 +15,5 @@
     </string>
     <string name="pick_a_video">Select or record a a video below to try it out:</string>
     <string name="trimming_progress">Trimming your video...</string>
+    <string name="trim_from_x_to_y">Trim from %1$d to %2$d</string>
 </resources>

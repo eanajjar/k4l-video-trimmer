@@ -38,7 +38,6 @@ public class TrimmerActivity extends AppCompatActivity implements OnTrimVideoLis
             mVideoTrimmer.setMaxDuration(10);
             mVideoTrimmer.setOnTrimVideoListener(this);
             mVideoTrimmer.setOnK4LVideoListener(this);
-            //mVideoTrimmer.setDestinationPath("/storage/emulated/0/DCIM/CameraCustom/");
             mVideoTrimmer.setVideoURI(Uri.parse(path));
             mVideoTrimmer.setVideoInformationVisibility(true);
         }
@@ -60,12 +59,23 @@ public class TrimmerActivity extends AppCompatActivity implements OnTrimVideoLis
             }
         });
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        intent.setDataAndType(uri, "video/mp4");
+        intent.setDataAndType(uri, "video/*");
         startActivity(intent);
         finish();
     }
 
-    @Override
+	@Override
+	public boolean shouldTrim() {
+		return false;
+	}
+
+	@Override
+	public void onTrimFinished(int mSecStart, int mSecEnd) {
+		Toast.makeText(this, getString(R.string.trim_from_x_to_y, mSecStart, mSecEnd), Toast.LENGTH_SHORT).show();
+		finish();
+	}
+
+	@Override
     public void cancelAction() {
         mProgressDialog.cancel();
         mVideoTrimmer.destroy();

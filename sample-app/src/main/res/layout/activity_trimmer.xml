@@ -1,5 +1,13 @@
-<life.knowledge4.videotrimmer.K4LVideoTrimmer xmlns:android="http://schemas.android.com/apk/res/android"
+<life.knowledge4.videotrimmer.K4LVideoTrimmer
     android:id="@+id/timeLine"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:trimmer="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+    trimmer:range_drawableLeft="@drawable/video_cropper_left_stop"
+    trimmer:range_drawableRight="@drawable/video_cropper_right_stop"
+    trimmer:seek_drawable="@drawable/video_cropper_current_position"
+    trimmer:range_drawable_width="24dp"
+    trimmer:seek_drawable_width="16dp"
+    />
 

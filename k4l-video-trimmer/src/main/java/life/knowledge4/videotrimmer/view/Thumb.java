@@ -23,15 +23,22 @@
  */
 package life.knowledge4.videotrimmer.view;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.text.Html;
 
 import java.util.List;
 import java.util.Vector;
 
 import life.knowledge4.videotrimmer.R;
+import life.knowledge4.videotrimmer.utils.ImageUtils;
 
 public class Thumb {
 
@@ -107,6 +114,11 @@ public class Thumb {
 
         return thumbs;
     }
+
+	public void setDrawable(Drawable drawable, int mMaxWidthRangeDrawable){
+		setBitmap(ImageUtils.getScaledBitmap(ImageUtils.drawableToBitmap(drawable), mMaxWidthRangeDrawable));
+	}
+
 
     public static int getWidthBitmap(@NonNull List<Thumb> thumbs) {
         return thumbs.get(0).getWidthBitmap();

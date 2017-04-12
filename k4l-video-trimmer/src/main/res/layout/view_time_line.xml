@@ -2,23 +2,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                xmlns:EMVideoView="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:orientation="vertical">
+
+
+
 
     <RelativeLayout
         android:id="@+id/layout_surface_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/layout"
         android:background="@android:color/black"
         android:gravity="center"
         android:orientation="vertical">
 
-        <VideoView
-            android:id="@+id/video_loader"
+        <com.devbrackets.android.exomedia.ui.widget.EMVideoView
+            android:id="@+id/video_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            EMVideoView:useDefaultControls="false" />
 
         <ImageView
             android:id="@+id/icon_video_play"
@@ -26,56 +31,19 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/play_button"/>
+            android:background="@drawable/play_button" />
 
     </RelativeLayout>
 
+
     <RelativeLayout
-        android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/background_video_color">
-
-        <SeekBar
-            android:id="@+id/handlerTop"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:max="1000"
-            android:progressDrawable="@android:color/transparent"
-            android:secondaryProgress="0"
-            android:thumb="@drawable/apptheme_text_select_handle_middle"/>
-
-        <life.knowledge4.videotrimmer.view.ProgressBarView
-            android:id="@+id/timeVideoView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/handlerTop"/>
-
-        <life.knowledge4.videotrimmer.view.TimeLineView
-            android:id="@+id/timeLineView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/timeVideoView"/>
-
-        <life.knowledge4.videotrimmer.view.RangeSeekBarView
-            android:id="@+id/timeLineBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/timeLineView"/>
-
-        <View
-            android:id="@+id/lineTop"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/timeLineBar"
-            android:background="@color/line_button"/>
+        android:background="@color/black_translucent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/lineTop"
             android:orientation="horizontal">
 
             <Button
@@ -83,63 +51,106 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/black_button_background"
+                android:background="@color/black_translucent"
                 android:text="@string/cancel"
                 android:textColor="@android:color/white"/>
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/line_button"/>
 
             <Button
                 android:id="@+id/btSave"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/black_button_background"
+                android:background="@color/black_translucent"
                 android:text="@string/save"
-                android:textColor="@android:color/white"/>
+                android:textColor="@android:color/white" />
 
         </LinearLayout>
 
     </RelativeLayout>
 
+
     <RelativeLayout
         android:id="@+id/timeText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/layout"
-        android:visibility="gone">
+        android:layout_above="@+id/layout"
+        android:visibility="gone"
+        android:background="@color/black_translucent"
+        android:padding="8dp"
+        tools:visibility="visible">
 
-        <TextView
+       <!-- <TextView
             android:id="@+id/textSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white"
+            tools:text="00:00"
+            />-->
 
         <TextView
             android:id="@+id/textTimeSelection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/textSize"
-            android:layout_toLeftOf="@+id/textTime"
-            android:layout_toRightOf="@+id/textSize"
-            android:layout_toStartOf="@+id/textTime"
+            android:layout_centerInParent="true"
             android:gravity="center"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white"
+            tools:text="00:00"/>
 
-        <TextView
+       <!-- <TextView
             android:id="@+id/textTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white"
+            tools:text="00:00"/>-->
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black_translucent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+
+        <SeekBar
+            android:id="@+id/handlerTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="@dimen/default_width"
+            android:layout_gravity="center_horizontal"
+            android:max="1000"
+            android:progressDrawable="@android:color/transparent"
+            android:secondaryProgress="0"
+            android:thumb="@drawable/apptheme_text_select_handle_middle"
+            />
+
+        <life.knowledge4.videotrimmer.view.ProgressBarView
+            android:id="@+id/timeVideoView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/handlerTop"
+            />
+
+
+        <life.knowledge4.videotrimmer.view.TimeLineView
+            android:id="@+id/timeLineView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/timeVideoView" />
+
+
+        <life.knowledge4.videotrimmer.view.RangeSeekBarView
+            android:id="@+id/timeLineBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/timeLineView" />
 
     </RelativeLayout>
 
