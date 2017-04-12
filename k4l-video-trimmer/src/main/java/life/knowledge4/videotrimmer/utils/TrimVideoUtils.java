@@ -70,12 +70,12 @@ public class TrimVideoUtils {
 
 	public static void startTrim(File src, File dst, int startMs, int endMs, @NonNull OnTrimVideoListener callback)
 			throws IOException {
-		if (HAS_MEDIA_MUXER) {
-			genVideoUsingMuxer(src.getPath(), dst.getPath(), startMs, endMs,
-					true, true, callback);
-		} else {
+//		if (HAS_MEDIA_MUXER) {
+//			genVideoUsingMuxer(src.getPath(), dst.getPath(), startMs, endMs,
+//					true, true, callback);
+//		} else {
 			genVideoUsingMp4Parser(src, dst, startMs, endMs, callback);
-		}
+//		}
 	}
 
 
